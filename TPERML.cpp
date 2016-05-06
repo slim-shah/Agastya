@@ -1,59 +1,68 @@
-#include <map>
-#include <vector>
-#include <list>
-#include <map>
-#include <set>
-#include <deque>
-#include <stack>
-#include <bitset>
-#include <algorithm>
-#include <functional>
-#include <numeric>
-#include <utility>
-#include <sstream>
-#include <iostream>
-#include <iomanip>
-#include <cstdio>
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
-#include <iterator>
-#include <queue>
-#include <cassert>
-#include <cstring>
-
+//Slim_Shah
+#include<bits/stdc++.h>
 using namespace std;
-
-#define fr(i,n) for(int i = 0; i < (int)(n);i++)
-#define pl cout<<endl;
-#define all(v) v.begin(),v.end()
-#define sz(v) v.size()
-#define SENTINEL 1000001
-
-
-typedef long long int lli;
-typedef vector<string, string> vpss;
-typedef vector<int> vi;
-typedef vector<vector<int> > vvi;
-typedef vector<string> vs;
-typedef vector<bool> vb;
-typedef vector<char> vc;
-typedef map<string, int> msi;
-typedef vector<pair<int, int> > vpii;
-typedef pair<int, int> pii;
-
-int main()
+#define ll long long
+#define pb push_back
+#define mp make_pair
+#define endl "\n"
+#define F first
+#define S second
+const ll MOD = 1e9+7;
+int P[101];
+ll fact[101];
+vector<int> out;
+vector<int>lex;
+void P_gen(int n,int index,int m)
 {
-  int t,n,i,j,k,m;
-  scanf("%d",&t);
+    int pr=0,k=0;
+    out.clear();
+    lex.clear();
+    for(k=0;k<n;k++)
+    {
+        lex.pb(k+1);
+    }
+   for (k = 0; k < n; ++k)
+   {   pr = index / fact[n - 1 - k];
+       index = index % fact[n - 1 - k];
+       out.pb(pr);
+   }
 
-  while(t--){
-    scanf("%d %d",&n,&m);
+    for(k=0;k<n;k++)
+    {
+        pr=out.at(k);
+        P[k]=lex.at(pr);
+        lex.erase(lex.begin()+pr);
+    }
+    pr=0;
+   for(int i=0;i<n;i++)
+          cout<<P[i]<<" ";
+    cout<<endl;
+     pr++;
+    while(next_permutation(P,P+n) && pr<m)
+    {
 
-    
-  }
-	
-  return 0;
+        for(int i=0;i<n;i++)
+          cout<<P[i]<<" ";
+
+        cout<<endl;
+       pr++;
+       }
 }
 
-// concerns big integers :(
+int main()
+{   fact[0]=1;
+    for(int i=1;i<=100;i++)
+    {
+        fact[i]=(fact[i-1]*i)%MOD;
+    }
+
+  int t,n,index,m;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n>>index>>m;
+        P_gen(n,index,m);
+        cout<<endl;
+    }
+return 0;}
+
